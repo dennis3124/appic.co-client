@@ -6,3 +6,14 @@
 export const environment = {
   production: false
 };
+
+export const api = {
+  endpoints: {
+    users: '/users',
+    auth: '/auth'
+  },
+  baseUrls: {
+    local: '//localhost:8090/api'
+  }
+}
+
