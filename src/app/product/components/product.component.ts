@@ -5,6 +5,7 @@ import {PostModel} from '../../core-module/models/post.model';
 import {CompanyService} from '../../core-module/services/company.service';
 import {CompanyModel} from '../../core-module/models/company.model';
 import {UtilsService} from '../../core-module/services/utils.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   templateUrl: './product.component.html',
@@ -13,14 +14,13 @@ import {UtilsService} from '../../core-module/services/utils.service';
 
 export class ProductComponent implements OnInit {
   private post: PostModel;
-  private loader = false;
   private company: CompanyModel;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private util: UtilsService,
               private companyService: CompanyService,
-              private postService: PostService,) {
+              private postService: PostService, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -40,3 +40,4 @@ export class ProductComponent implements OnInit {
     });
   }
 }
+

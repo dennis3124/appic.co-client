@@ -8,6 +8,9 @@ export class PostModel {
   category: string;
   _id: string;
   companyId: string;
+  projectImage: string;
+  video: string;
+  story: string;
 
   constructor() {
     this.name = '';
@@ -15,13 +18,17 @@ export class PostModel {
     this.postUrl = '';
     this.category = '';
     this.images = [];
+    this.projectImage = '';
+    this.video = '';
+    this.story = '';
   }
 
   setCompanyId(companyId) {
     this.companyId = companyId;
   }
 
-  setImage(image) {
-    this.images.push(image);
+  setProjectImage(image) {
+    this.projectImage = image;
   }
+
 }

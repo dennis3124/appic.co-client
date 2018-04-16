@@ -12,6 +12,8 @@ import {FileDropModule} from 'ngx-file-drop';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DashboardBasicFormComponent} from './components/dashboard-add-product/dashboard-basic-form/dashboard-basic-form.component';
 import {DashboardProjectInfoComponent} from './components/dashboard-add-product/dashboard-project-info/dashboard-project.info.component';
+import {DashboardStoryComponent} from './components/dashboard-story/dashboard-story.component';
+import {CKEditorModule} from 'ng2-ckeditor';
 
 
 @NgModule({
@@ -21,13 +23,15 @@ import {DashboardProjectInfoComponent} from './components/dashboard-add-product/
     RouterModule,
     NgbModule,
     FileDropModule,
+    CKEditorModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [],
   declarations: [
     DashboardComponent,
     DashboardHomeComponent,
+    DashboardStoryComponent,
     DashboardProductComponent,
     DashboardBasicFormComponent,
     DashboardAddProductComponent,

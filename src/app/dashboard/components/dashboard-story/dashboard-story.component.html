@@ -1,0 +1,62 @@
+<div class="py-3">
+  <div class="container">
+    <div class="row py-2">
+      <div class="col-md-6">
+        <h4> Your Project Video</h4>
+      </div>
+      <div *ngIf="!isMobile" class="col-md-6">
+        <file-drop headertext="Drop files here or use file picker below" (onFileDrop)="dropped($event)">
+        </file-drop>
+      </div>
+      <div class="col-md-6"></div>
+      <div class="col-md-6 my-3">
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="projectVideo" accept=".mp4 .mov .mpeg .3gp .wmv .flv">
+            <label class="custom-file-label" for="projectVideo">{{fileName}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div *ngIf="fileError.length > 0" class="alert alert-danger" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
+          <h4 class="alert-heading">Error!</h4>
+          <p class="mb-0">{{fileError}}</p>
+        </div>
+        <div class="alert alert-info text-center" role="alert">
+          <p class="align-self-center">Supports MOV, MP4, MPEG, WMV, FLV and 3GP - 1GB Size Limit </p>
+        </div>
+      </div>
+    </div>
+    <div class="row py-2">
+      <div class="col-md-12">
+        <h4> Create your story here.</h4>
+        <p class="lead">Use the editor below to advertise your product </p>
+      </div>
+      <div class="col-md-12">
+
+        <ckeditor
+          [(ngModel)]="htmlContent"
+          [config]="{uiColor: '#ffffff', removeButtons: 'Flash,Iframe'}"
+          [readonly]="false"
+          (change)="onChange($event)"
+          (editorChange)="onEditorChange($event)"
+          (ready)="onReady($event)"
+          (focus)="onFocus($event)"
+          (blur)="onBlur($event)"
+          (contentDom)="onContentDom($event)"
+          (fileUploadRequest)="onFileUploadRequest($event)"
+          debounce="500">
+
+          <!--<ckbutton [name]="'imageExplorer'"-->
+                    <!--[command]="'openImageExplorer'"-->
+                    <!--(click)="openImageExplorer($event)"-->
+                    <!--[label]="'Open image explorer'"-->
+                    <!--[toolbar]="'insert,1'">-->
+          <!--</ckbutton>-->
+        </ckeditor>
+      </div>
+    </div>
+    <button class="btn btn-dark float-right" (click)="finished()">Done</button>
+  </div>
+</div>

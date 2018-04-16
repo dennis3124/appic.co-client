@@ -18,11 +18,27 @@
           <a href="#" class="btn btn-lg btn-primary mx-1">Follow</a>
         </div>
         <div class="col-md-5 flex-column align-self-center">
-          <div class="embed-responsive embed-responsive-4by3 align-self-center">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/i__1Z5a9Sak?autoplay=0"
-                    allowfullscreen=""></iframe>
+          <div *ngIf="post?.video" class="embed-responsive embed-responsive-4by3 align-self-center">
+            <video oncontextmenu="return false;" controls controlsList="nodownload">
+              <source [src]="post?.video">
+              <p>Your browser does not support the video tag. Please update your current browser or use another browser.</p>
+
+            </video>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+<!-- Contents -->
+
+<div *ngIf="post?.story" class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div [innerHTML]="post?.story"></div>
+      </div>
+    </div>
+  </div>
+</div>
+

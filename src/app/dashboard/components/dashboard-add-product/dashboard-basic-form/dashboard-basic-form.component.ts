@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, EventEmitter, NgZone, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, NgZone, OnInit, Output} from '@angular/core';
 import {FileSystemFileEntry, UploadEvent, UploadFile} from 'ngx-file-drop';
 import {NgbAccordionConfig, NgbPanelChangeEvent} from '@ng-bootstrap/ng-bootstrap';
 import {DashboardService} from '../../../services/dashboard.service';
 import {PostService} from '../../../../core-module/services/post.service';
 import {UtilsService} from '../../../../core-module/services/utils.service';
 import {environment} from '../../../../../environments/environment';
+import {PostModel} from '../../../../core-module/models/post.model';
 
 @Component({
   selector: 'app-dashboard-basic',
@@ -14,6 +15,7 @@ import {environment} from '../../../../../environments/environment';
 
 export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
   @Output() done = new EventEmitter<boolean>();
+  @Input('postInCreation') postInCreation: PostModel;
   private fileError = '';
   private files: UploadFile[];
   public fileName = '';
@@ -26,22 +28,21 @@ export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
     'image/png'
   ];
 
-  constructor(private config: NgbAccordionConfig,
+  constructor(
               private util: UtilsService,
               private dashboardService: DashboardService,
               private postService: PostService,
               private zone: NgZone) {
-    config.closeOthers = true;
-    config.type = 'primary';
+
   }
 
   ngAfterViewInit() {
+
 
     /* View has initialized, add listener to file change: etc. file upload*/
     const fileImageUpload = document.getElementById('projectImageFile');
     fileImageUpload.addEventListener('change', () => {
       const curFiles = fileImageUpload['files'];
-      console.log(curFiles);
       if (curFiles.length === 0) {
         this.fileName = '';
       } else if (curFiles.length > 0) {
@@ -66,6 +67,15 @@ export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.isMobile = this.mobileCheck();
+    if (this.postInCreation) {
+      this.dashboardService.product.name = this.postInCreation.name;
+      this.dashboardService.product.description = this.postInCreation.description;
+      this.dashboardService.product.category = this.postInCreation.category;
+      this.dashboardService.product = this.postInCreation;
+      // Go to next step in accordion
+      console.log(this.postInCreation);
+      this.done.emit(true);
+    }
   }
 
   checkValidFileTypes(fileInput): boolean {
@@ -105,23 +115,6 @@ export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
               this.file = null;
             }
           });
-
-          /**
-           // You could upload it like this:
-           const formData = new FormData()
-           formData.append('logo', file, relativePath)
-
-           // Headers
-           const headers = new HttpHeaders({
-            'security-token': 'mytoken'
-          })
-
-           this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
-           .subscribe(data => {
-            // Sanitized logo returned from backend
-          })
-           **/
-
         });
       } else {
         // It was a directory;
@@ -138,7 +131,7 @@ export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
     // First upload image
     const formData = new FormData();
     formData.append('image', this.dashboardService.getFile());
-    formData.append('companyUrl', companyId);
+    formData.append('companyId', companyId);
     environment.upload = true;
     this.postService.uploadImage(formData).subscribe(data => {
       const imageUrl = data.body.data as String;

@@ -8,14 +8,15 @@
             <span class="text-white accordion-title"> Product Details </span>
           </ng-template>
           <ng-template ngbPanelContent>
-            <app-dashboard-basic (done)="onFinishProjectDetails($event)"></app-dashboard-basic>
+            <app-dashboard-basic [postInCreation]="postInCreation" (done)="onFinishProjectDetails($event)"></app-dashboard-basic>
           </ng-template>
         </ngb-panel>
         <ngb-panel id="panel-2">
           <ng-template ngbPanelTitle>
-            <span class="text-white accordion-title"> Campaign </span>
+            <span class="text-white accordion-title"> Story </span>
           </ng-template>
           <ng-template ngbPanelContent>
+            <app-dashboard-story (done)="onFinishStory($event)"></app-dashboard-story>
           </ng-template>
         </ngb-panel>
       </ngb-accordion>

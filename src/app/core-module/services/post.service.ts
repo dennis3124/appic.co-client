@@ -34,8 +34,30 @@ export class PostService {
     });
   }
 
+  updatePost(postObj: PostModel): Observable<any> {
+    return this.http.put(api.endpoints.posts + `/${postObj._id}`, postObj).map((res: ResponseModel) => {
+      return res;
+    });
+  }
+
   uploadImage(image) {
     return this.http.post(api.endpoints.posts + '/image/upload', image).map((res: ResponseModel) => {
+      return res;
+    });
+  }
+
+  uploadVideo(video) {
+    return this.http.post(api.endpoints.posts + '/video/upload', video).map((res: ResponseModel) => {
+      return res;
+    });
+  }
+
+  removeVideo(videoName) {
+    const requestObj = {
+      fileName: videoName
+    };
+
+    return this.http.post(api.endpoints.posts + '/video/remove', requestObj).map((res: ResponseModel) => {
       return res;
     });
   }
@@ -47,6 +69,12 @@ export class PostService {
 
     return this.http.post(api.endpoints.posts + '/image/remove', requestObj).map((res: ResponseModel) => {
       return res;
+    });
+  }
+
+  getPostInCreation(companyId: string): Observable<any> {
+    return this.http.get(api.endpoints.posts + `/company/${companyId}/creation`).map((res: ResponseModel) => {
+      return res.body.data;
     });
   }
 
