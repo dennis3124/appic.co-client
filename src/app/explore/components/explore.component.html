@@ -1,0 +1,35 @@
+<div class="container">
+  <div *ngIf="posts" class="card-group" infiniteScroll
+       [infiniteScrollDistance]="1"
+       [infiniteScrollThrottle]="1000"
+       [infiniteScrollDisabled]="!scroll"
+       (scrolled)="infiniteScrollFired($event)">
+
+    <div class="card-group col-md-6 col-lg-4 col-sm-12 py-5"
+         *ngFor="let car of posts; let i = index">
+      <div class="card">
+        <a href="#">
+          <img class="card-img-top" [src]="imgSrc[i % 5]" alt="Card image cap">
+        </a>
+        <button placement="top" ngbTooltip="Follow Product" class="btn btn-xs btn-primary card-image-button">
+          <i class="fas fa-heart"></i>
+        </button>
+        <div class="card-body">
+          <h5 class="card-title">{{ car.name }}</h5>
+          <p class="card-text"> {{ car.description }}</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-text"><small class="text-muted">Updated 2 minutes ago</small></span>
+          <a [routerLink]="['/product', car._id]">
+            <span class="float-right"> View </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="posts" style="text-align: center">
+  <button *ngIf="!infiniteLoader" (click)="activateInfiniteScroll()" class="btn btn-primary"> View More</button>
+  <div *ngIf="infiniteLoader" class="infinite-loader"></div>
+</div>

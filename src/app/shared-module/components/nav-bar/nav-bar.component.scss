@@ -1,0 +1,16 @@
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff;
+}
+
+.logout:hover {
+  cursor: pointer;
+}
+
+
+.sign-in-btn {
+  &:hover {
+    cursor:pointer
+  }
+}
+
+

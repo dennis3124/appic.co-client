@@ -1,0 +1,44 @@
+
+  <div *ngIf="company" class="jumbotron jumbotron-fluid">
+    <div class="container-fluid">
+      <div class="py-5">
+        <div class="row justify-content-center">
+          <div class="col-auto col-md-6 text-center align-self-center">
+            <img class="img-fluid rounded-circle p-3 profile-image" src="../../../../assets/images/avatar.png" alt="Card image" >
+          </div>
+
+          <div class="col-auto col-md-6 justify-content-center align-self-center">
+            <h4 class="display-4">{{company?.name}}</h4>
+            <p class="lead"> {{company?.description }}</p>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center" >
+          <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+              <a href="" class="active nav-link" data-toggle="tab" data-target="#tabone">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="" data-toggle="tab" data-target="#tabtwo">Story</a>
+            </li>
+          </ul>
+          <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="tabone" role="tabpanel">
+              <p class="">Tab pane one. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="tab-pane fade" id="tabtwo" role="tabpanel">
+              <p class="">Tab pane two. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

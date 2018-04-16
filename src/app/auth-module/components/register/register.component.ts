@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {TokenPayloadModel} from '../../models/token-payload.model';
+import {UserRegistrationModel} from '../../models/token-payload.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -9,18 +11,33 @@ import {TokenPayloadModel} from '../../models/token-payload.model';
 })
 
 export class RegisterComponent implements OnInit {
-  private credentials: TokenPayloadModel = {
-    Email: '',
+  registerForm: FormGroup;
+  private credentials: UserRegistrationModel = {
+    email: '',
     password: '',
-    FirstName: '',
-    LastName: ''
+    firstName: '',
+    lastName: ''
+  };
+  constructor(private auth: AuthService, private fb: FormBuilder) {}
+  ngOnInit() {
+    this._initForm();
   }
-  constructor(private auth: AuthService) {}
-  ngOnInit() {}
 
   register() {
-    this.auth.createUser(this.credentials).subscribe( res => {
+    environment.auth = true;
+    this.auth.createUser(this.registerForm.value).subscribe( res => {
       console.log(res);
+      environment.auth = false;
+    });
+
+  }
+
+  _initForm() {
+    this.registerForm = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required]
     });
   }
 }

@@ -1,0 +1,87 @@
+<!--First step, Basic project intro-->
+<!--Project images-->
+<div class="container">
+  <div class="row my-3">
+    <div class="col-md-6">
+      <h4>Product Image</h4>
+    </div>
+    <div *ngIf="!isMobile" class="col-md-6">
+      <file-drop headertext="Drop files here or use file picker below" (onFileDrop)="dropped($event)">
+      </file-drop>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-6 my-3">
+      <div class="input-group">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="projectImageFile" accept=".jpeg, .jpg, .png">
+          <label class="custom-file-label" for="projectImageFile">{{fileName}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div *ngIf="fileError.length > 0" class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
+        <h4 class="alert-heading">Error!</h4>
+        <p class="mb-0">{{fileError}}</p>
+      </div>
+      <div class="alert alert-warning text-center" role="alert">
+        <p class="align-self-center">JPEG, PNG, JPG - 50MB file limit</p>
+      </div>
+    </div>
+  </div>
+  <div class="row my-3">
+    <!--Product title-->
+    <div class="col-md-6">
+      <h4> Product Title *</h4>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group">
+        <input maxlength="60" [(ngModel)]="dashboardService.product.name" placeholder="Give your product a name" class="form-control" aria-label="With textarea"/>
+      </div>
+      <div class="text-right text-muted py-2">
+        {{dashboardService.product.name.length}}/60
+      </div>
+    </div>
+  </div>
+
+  <div class="row my-3">
+    <!--Product Description-->
+    <div class="col-md-6">
+      <h4> Product Description *</h4>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group">
+        <textarea maxlength="150" [(ngModel)]="dashboardService.product.description" placeholder="Give your product a name" class="form-control" aria-label="With textarea"></textarea>
+      </div>
+      <div class="text-right text-muted py-2">
+        {{dashboardService.product.description.length}}/150
+      </div>
+    </div>
+  </div>
+
+  <div class="row my-3">
+    <!--Product Description-->
+    <div class="col-md-6">
+      <h4> Product Category</h4>
+    </div>
+    <div class="col-md-6">
+      <div class="btn-group category-dropdown-group">
+        <button class="btn-block btn btn-info dropdown-toggle" type="button"
+                data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+          {{dashboardService.product.category ? dashboardService.product.category : 'Select Product Category'}}
+        </button>
+
+        <div class="dropdown-menu text-center">
+          <button (click)="dashboardService.product.category = 'Smartwatches'" class="dropdown-item" type="button">Smartwatches
+          </button>
+          <button (click)="dashboardService.product.category = '3D Printing'" class="dropdown-item" type="button">3D Painting</button>
+          <button (click)="dashboardService.product.category = 'Apps'" type="button" class="dropdown-item">Apps</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button [disabled]="dashboardService.product.name.length <= 0 && !dashboardService.product.description.length <= 0" (click)="finished()" class="btn btn-dark float-right"> Done</button>
+
+</div>

@@ -1,0 +1,45 @@
+<div class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <div class="card text-white p-5 bg-primary">
+          <div class="card-body">
+            <h1 class="mb-4">Login</h1>
+
+            <form [formGroup]="loginForm" (submit)="login()">
+              <div class="form-group">
+                <label for="username">Email</label>
+                <input class="form-control" formControlName="email" type="text" id="username" autofocus>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" formControlName="password" type="password" id="password" autofocus>
+              </div>
+              <button type="submit" class="btn btn-secondary my-1">Sign In</button>
+              <a routerLink="/register"><p class="small text-white">Already have an account?</p></a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<ng-template #loginError let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">User Not Found</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Email / Password does not match&hellip;</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+

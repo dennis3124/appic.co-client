@@ -1,0 +1,16 @@
+.product-category-dropdown-group {
+  width: 80%;
+
+  .product-category-dropdown-btn {
+    width:100%;
+  }
+
+  .dropdown-menu {
+    width: 100%;
+    text-align:center;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

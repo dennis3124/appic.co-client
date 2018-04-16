@@ -1,0 +1,28 @@
+<div *ngIf="post" class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h4 class="display-4">{{post?.name}}</h4>
+      <p class="lead"> {{post?.description }}</p>
+      <span *ngIf="company" class="text-muted float-right">
+      <a [routerLink]="['/company', post.companyId]">
+              By {{company.name}}
+      </a>
+    </span>
+    </div>
+  </div>
+  <div class="py-5 text-white bg-secondary">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7 text-md-left text-center align-self-center my-5">
+          <h1 class="display-1">Video Intro</h1>
+          <p class="lead">What does a video do?</p>
+          <a href="#" class="btn btn-lg btn-primary mx-1">Follow</a>
+        </div>
+        <div class="col-md-5 flex-column align-self-center">
+          <div class="embed-responsive embed-responsive-4by3 align-self-center">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/i__1Z5a9Sak?autoplay=0"
+                    allowfullscreen=""></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,6 +1,11 @@
-export interface TokenPayloadModel {
-  Email: string;
+export interface UserLoginModel {
+  email: string;
   password: string;
-  FirstName?: string;
-  LastName?: string;
+}
+
+export interface UserRegistrationModel {
+  email: string;
+  password: string;
+  firstName?: string;
+  lastName?: string;
 }

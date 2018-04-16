@@ -1,0 +1,72 @@
+<ng-container *ngIf="!loader">
+  <div class="py-5 filter-gradient text-white">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-auto col-md-12 text-center align-self-center">
+          <img class="img-fluid rounded-circle p-2 profile-image" src="../../../assets/images/avatar.png"
+               alt="Card image">
+        </div>
+
+        <div class="col-auto col-md-12 py-3 justify-content-center align-self-center text-center">
+          <p class="display-4 m-a-0">{{user.firstName}} {{user.lastName}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-cards-row">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-sm-6 col-md-4">
+          <div class="card mb-2 rounded text-center">
+            <div class="card-body">
+              <h5 class="card-title">Following</h5>
+              <div class="card-text align-self-center">
+                <p class="lead">24 Products</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="card-link">View</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="card mb-2 rounded text-center">
+            <div class="card-body ">
+              <h5 class="card-title">Interests</h5>
+              <div class="card-text">
+                <p class="lead">2 Companies</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="card-link">View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card text-center">
+            <h4 class="card-title mt-2"> Biography </h4>
+            <div class="card-text">
+              <p class="lead"> I'm a young computer scientist from Purdue University</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-container>
+
+<ng-container *ngIf="loader">
+  <div class="loader-container">
+    <div class="loader">
+    </div>
+  </div>
+</ng-container>

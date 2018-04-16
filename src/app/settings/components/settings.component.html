@@ -1,0 +1,38 @@
+<ng-container *ngIf="!loader">
+  <div class="py-5">
+    <div class="row">
+      <div class="container">
+        <div>
+          <p class="display-4"> Settings</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a [routerLink]="['./account']" class="nav-link" [ngClass]="{'active': router.isActive('/settings/account', true)}">
+              Account
+            </a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['./profile']" class="nav-link" [ngClass]="{'active': router.isActive('/settings/profile', true)}">
+              Edit Profile
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-5 container">
+    <router-outlet></router-outlet>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="loader">
+  <div class="loader"></div>
+</ng-container>

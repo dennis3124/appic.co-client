@@ -1,0 +1,102 @@
+@import "./theme";
+@import "./mixins";
+@import "./loader";
+
+//// import only the Bootstrap modules you need, e.g.
+//@import "~bootstrap/scss/functions";
+//@import "~bootstrap/scss/variables";
+//@import "~bootstrap/scss/mixins";
+//@import "~bootstrap/scss/grid";
+//@import "~bootstrap/scss/navbar";
+//@import "~bootstrap/scss/forms";
+
+
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+.card-img-top {
+  height: 350px !important;
+}
+
+
+.bg-gradient {
+  overflow: hidden;
+  color: color-yiq(map-get($theme-colors, 'primary'));
+  background: linear-gradient(-30deg, theme-color("secondary") 0%, theme-color("primary") 50%, theme-color("primary") 100%);
+}
+
+
+.filter-dark {
+  overflow: hidden;
+  position: relative;
+  color: color-yiq(map-get($theme-colors, 'dark'));
+  &:before {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height: 100%;
+    content: ' ';
+    background: rgba(map-get($theme-colors, 'dark'), 0.75);
+  }
+}
+.filter-light {
+  overflow: hidden;
+  position: relative;
+  color: color-yiq(map-get($theme-colors, 'light'));
+  &:before {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height: 100%;
+    content: ' ';
+    background: rgba(map-get($theme-colors, 'light'),0.75);
+  }
+}
+
+.filter-color {
+  overflow: hidden;
+  position: relative;
+  color: color-yiq(map-get($theme-colors, 'primary'));
+  &:before {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height: 100%;
+    content: ' ';
+    background: rgba(map-get($theme-colors, 'primary'), 0.75);
+  }
+}
+
+.filter-gradient {
+  overflow: hidden;
+  position: relative;
+  color: color-yiq(map-get($theme-colors, 'primary'));
+  &:before {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height: 100%;
+    content: ' ';
+    background: linear-gradient(-30deg, transparentize(#4f70ce, 0.1) 0%, transparentize(#12bbad, 0.1) 50%, transparentize(#12bbad, 0.05) 100%);
+  }
+}
+
+.profile-image {
+  max-height:300px;
+  max-width:300px;
+}
+
+
+
+
+
+// Font Awesome
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+@import "~font-awesome/scss/icons";
+

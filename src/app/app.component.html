@@ -1,1 +1,23 @@
-<app-register></app-register>
+<div class="app-container">
+  <app-navbar></app-navbar>
+  <div *ngIf="loader" class="loader-container">
+    <div class="loader">
+    </div>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!--Div for universal message -->
+  <ng-container *ngIf="message">
+    <div *ngIf="globalMessage?.success" class="myAlert alert alert-success">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Success!</strong> {{globalMessage.message}}.
+    </div>
+    <div *ngIf="!globalMessage?.success" class="myAlert alert alert-danger">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Error!</strong> {{globalMessage.message}}.
+    </div>
+  </ng-container>
+  <!--<app-footer class="footer"></app-footer>-->
+</div>

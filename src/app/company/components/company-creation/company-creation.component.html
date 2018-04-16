@@ -1,0 +1,60 @@
+
+<ng-container>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="card p-5 bg-light">
+            <h1 class="mb-4">Create A Company</h1>
+            <p class="lead"> Complete the form below to register a company with Appic</p>
+            <form #form="ngForm" [ngClass]="{'was-validated': form.submitted === false}"
+                  [formGroup]="creationForm" (ngSubmit)="create()">
+              <div class="form-group">
+                <label class="control-label required" for="companyname">Company Name *</label>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid':creationForm.get('name').hasError('required') && form.submitted}"
+                       formControlName="name" type="text" id="companyname" autofocus>
+                <div class="invalid-feedback">Name is required!</div>
+              </div>
+              <div class="form-group">
+                <label class="control-label required" for="description">Description *</label>
+                <input
+                  [ngClass]="{'is-invalid':creationForm.get('description').hasError('required') && form.submitted}"
+                  class="form-control" formControlName="description" type="textarea" id="description" autofocus>
+                <div class="invalid-feedback">Description is required!</div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="url">Company Website (Optional)</label>
+                <input
+                  class="form-control" formControlName="companyUrl" type="text" id="url" autofocus>
+              </div>
+              <button type="submit" class="btn btn-secondary my-1 float-right">Continue</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
+
+<!-- Modal For successful creation -->
+<ng-template #companyCreation let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Company Creation</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p> Your Company has been submitted for review&hellip;</p>
+    <p> We will send you an email to notify if your company is approved</p>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+
+

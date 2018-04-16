@@ -1,0 +1,21 @@
+/deep/ ngb-accordion > div .card > div  {
+  & > a:hover {
+    text-decoration: none;
+    outline: none;
+  }
+}
+
+
+ngb-accordion {
+  width: 80%;
+}
+
+.custom-file-input:hover {
+  cursor: pointer;
+}
+
+
+.done-btn {
+  padding-left: 10%;
+  padding-right:10%;
+}

@@ -1,0 +1,38 @@
+<div class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <p class="h3"> Products: </p>
+      </div>
+      <div class="col-md-6 text-center">
+        <p class="h2 text-primary"> {{posts?.length}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row d-flex">
+    <div class="card-deck col-md-4 col-lg-4 col-sm-12 py-5"
+         *ngFor="let car of posts; let i = index">
+      <div class="card">
+        <a href="#">
+          <img class="card-img-top" [src]="imgSrc[i % 5]" alt="Card image cap">
+        </a>
+        <button placement="top" ngbTooltip="Follow Product" class="btn btn-xs btn-primary card-image-button">
+          <i class="fas fa-heart"></i>
+        </button>
+        <div class="card-body">
+          <h5 class="card-title">{{ car.name }}</h5>
+          <p class="card-text"> {{ car.description }}</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-text"><small class="text-muted">Updated 2 minutes ago</small></span>
+          <a [routerLink]="['/product', car._id]">
+            <span class="float-right"> View </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

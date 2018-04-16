@@ -1,0 +1,31 @@
+<!-- Sidebar toggle button-->
+<button (click)="toggleSidebar()" type="button" id="sidebarCollapse" class="fixed-bottom toggle-button btn btn-secondary btn-lg btn-block">
+  Toggle Sidebar
+</button>
+
+<div class="wrapper">
+
+
+  <!--Side Bar-->
+  <nav [ngClass]="{'active': toggle}" id="sidebar">
+    <!-- Sidebar Header -->
+    <div class="sidebar-header text-center">
+      <h3>{{company?.name}}</h3>
+    </div>
+
+    <!--Sidebar Links-->
+    <ul class="list-unstyled text-center">
+      <li [ngClass]="{'active': router.isActive('/dashboard/home', true)}"><a [routerLink]="['./home']" >Home</a></li>
+      <li [ngClass]="{'active': router.isActive('/dashboard/products', true)}"><a [routerLink]="['./products']" >Products</a></li>
+      <li [ngClass]="{'active': router.isActive('/dashboard/products/add', true)}"><a [routerLink]="['./products/add']" >Add Product</a></li>
+
+    </ul>
+  </nav>
+
+  <!--Content-->
+  <div id="content">
+    <!--<input #file (change)="onChange(file.files)" type="file"/>-->
+    <!--<button (click)="submitFile()"> Submit </button>-->
+    <router-outlet></router-outlet>
+  </div>
+</div>
