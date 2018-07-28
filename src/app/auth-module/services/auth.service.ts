@@ -1,16 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable, BehaviorSubject, Subject} from 'rxjs';
 import 'rxjs/add/operator/map';
+
 
 import {Router} from '@angular/router';
 import {UserModel} from '../models/user.model';
 import {UserLoginModel} from '../models/token-payload.model';
 import {api, environment} from '../../../environments/environment';
 import {ResponseModel} from '../../core-module/models/response.model';
-import {TokenResponse} from '../models/token.model';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Subject} from 'rxjs/Subject';
 import {DashboardService} from '../../dashboard/services/dashboard.service';
 
 @Injectable()

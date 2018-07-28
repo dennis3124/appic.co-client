@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, EventEmitter, NgZone, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, NgZone, Output, ViewChild} from '@angular/core';
 import {FileSystemFileEntry, UploadEvent, UploadFile} from 'ngx-file-drop';
-import {DashboardService} from '../../services/dashboard.service';
+import {DashboardService} from '../../../services/dashboard.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {PostService} from '../../../core-module/services/post.service';
-import {environment} from '../../../../environments/environment';
-import {UtilsService} from '../../../core-module/services/utils.service';
+import {PostService} from '../../../../core-module/services/post.service';
+import {environment} from '../../../../../environments/environment';
+import {UtilsService} from '../../../../core-module/services/utils.service';
 
 @Component({
   selector: 'app-dashboard-story',
@@ -13,6 +13,7 @@ import {UtilsService} from '../../../core-module/services/utils.service';
 })
 
 export class DashboardStoryComponent implements AfterViewInit {
+  @Input('post') post;
   @Output() done = new EventEmitter<boolean>();
   @ViewChild('uploadModal') uploadModal: any;
   @ViewChild('ckeditor') ckeditor: any;
@@ -20,13 +21,16 @@ export class DashboardStoryComponent implements AfterViewInit {
   private files: UploadFile[];
   private file;
   private fileError = '';
-  private htmlContent = '';
+  private htmlContent;
 
 
   constructor(private modalService: NgbModal, private dashboardService: DashboardService,
-              private zone: NgZone, private postService: PostService, private util: UtilsService) {}
+              private zone: NgZone, private postService: PostService, private util: UtilsService) {
+  }
 
   ngAfterViewInit() {
+    this.htmlContent = this.post.story || '';
+
     /* View has initialized, add listener to file change: etc. file upload*/
     const fileVideoUpload = document.getElementById('projectVideo');
     fileVideoUpload.addEventListener('change', () => {
@@ -104,8 +108,15 @@ export class DashboardStoryComponent implements AfterViewInit {
   }
 
   finished() {
+    if (this.post) {
+      this.handleEditStory();
+      return;
+    }
+
     this.util.showLoader();
     const companyId = this.dashboardService.getCompany()._id;
+
+
     // Upload video to server
     const formData = new FormData();
     formData.append('video', this.file);
@@ -116,6 +127,7 @@ export class DashboardStoryComponent implements AfterViewInit {
       const fileName = videoUrl.split('/')[videoUrl.split('/').length - 1];
       if (data.success) {
         this.dashboardService.setProductVideo(videoUrl);
+        this.dashboardService.product.status = 'Development';
         this.dashboardService.product.story = this.htmlContent;
         // Video uploaded successfully, update post
         this.postService.updatePost(this.dashboardService.getProduct()).subscribe(post => {
@@ -133,8 +145,58 @@ export class DashboardStoryComponent implements AfterViewInit {
           });
         });
       }
+    }, err => {
+      this.util.hideLoader();
+      this.util.newMessage(false, 'Error creating new post');
+
     });
 
+  }
+
+  handleEditStory() {
+    this.util.showLoader();
+    const companyId = this.dashboardService.getCompany()._id;
+
+    // Variables for edit
+    const oldImageUrl = this.post.video;
+    const oldFileName = oldImageUrl.split('/')[oldImageUrl.split('/').length - 1];
+    if (this.file) {
+      // New file, upload new video
+      // Upload video to server
+      const formData = new FormData();
+      formData.append('video', this.file);
+      formData.append('companyId', companyId);
+      environment.upload = true;
+      this.postService.uploadVideo(formData).subscribe(data => {
+        if (data.success) {
+          const videoUrl = data.body.data as String;
+          this.dashboardService.setProductVideo(videoUrl);
+          this.dashboardService.product.status = 'Development';
+          this.dashboardService.product.story = this.htmlContent;
+          this.postService.updatePost(this.dashboardService.getProduct()).subscribe(post => {
+            if (post.success) {
+              this.util.hideLoader();
+              this.done.emit(true);
+            }
+          });
+          // remove old video
+          this.postService.removeVideo(oldFileName).subscribe(function (deleteVideo) {
+          });
+        }
+      });
+    } else {
+      // No new video
+      this.dashboardService.setProductVideo(oldImageUrl);
+      this.dashboardService.product.status = 'Development';
+      this.dashboardService.product.story = this.htmlContent;
+      this.postService.updatePost(this.dashboardService.getProduct()).subscribe(post => {
+        if (post.success) {
+          this.util.hideLoader();
+          this.util.newMessage(true, 'Successfully updated product story');
+
+        }
+      });
+    }
   }
 
   /* Functions for editor */

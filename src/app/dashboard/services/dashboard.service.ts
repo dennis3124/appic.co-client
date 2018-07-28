@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CompanyModel} from '../../core-module/models/company.model';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {BehaviorSubject} from 'rxjs';
 import {PostModel} from '../../core-module/models/post.model';
 import {environment} from '../../../environments/environment';
 
@@ -17,7 +17,7 @@ export class DashboardService {
 
   setCompany(company): void {
     this.company = company;
-    this.product.setCompanyId(this.company._id);
+    this.product.companyId = this.company._id;
     this.storage.setItem('company', JSON.stringify(this.company));
     this.companySubject$.next(true);
   }
@@ -31,13 +31,6 @@ export class DashboardService {
     this.companySubject$.next(false);
   }
 
-  setFile(file): void {
-    this.file = file;
-  }
-
-  getFile(): File {
-    return this.file;
-  }
 
   removeFile(): void {
     this.file = null;
@@ -48,10 +41,14 @@ export class DashboardService {
   }
 
   setProductImage(image): void {
-    this.product.setProjectImage(image);
+    this.product.projectImage = image;
   }
 
   setProductVideo(videoUrl): void {
     this.product.video = videoUrl;
+  }
+
+  setProduct(product) {
+    this.product = product;
   }
 }

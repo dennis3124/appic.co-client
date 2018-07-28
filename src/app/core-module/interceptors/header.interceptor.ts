@@ -1,3 +1,5 @@
+
+import {throwError as observableThrowError, Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {
   HttpEvent,
@@ -5,7 +7,6 @@ import {
   HttpHandler,
   HttpRequest
 } from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
 import {api, environment, authorizedEndpoints} from '../../../environments/environment';
 
 
@@ -31,7 +32,7 @@ export class HeaderInterceptor implements HttpInterceptor {
       if (token) {
         requestOption.setHeaders['Authorization'] = `Bearer ${token}`;
       } else {
-        return Observable.throw('Not Authroized');
+        return observableThrowError('Not Authroized');
       }
     }
 

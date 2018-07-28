@@ -10,6 +10,7 @@ export class PostModel {
   companyId: string;
   projectImage: string;
   video: string;
+  status: string;
   story: string;
 
   constructor() {

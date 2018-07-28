@@ -1,22 +1,84 @@
 <div class="py-5">
   <div class="container-fluid">
-    <div class="row d-flex">
-      <div class="col-lg-4">
-        <div class="card py-2 text-center">
-          <h4 class="card-title display">Views</h4>
-          <div class="card-body">24, 000 </div>
+    <div class="row py-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body text-center">
+            <h3 class="card-title"> Views </h3>
+            <div class="card-text py-2">
+              <span class="display-4 text-primary"> {{company?.clicks.length || 0}}</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="card py-2 text-center">
-          <h4 class="card-title display">Favorites</h4>
-          <div class="card-body">30 Favorites</div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body text-center">
+            <h3 class="card-title"> Favorites </h3>
+            <div class="card-text py-2">
+              <span class="display-4 text-primary"> {{ company?.favorites.length || 0 }} </span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="card py-2 text-center">
-          <h4 class="card-title display">Hi</h4>
-          <div class="card-body">hi</div>
+
+      <!--<div class="col-md-4">-->
+      <!--<div class="card">-->
+      <!--<div class="card-body text-center">-->
+      <!--<h3 class="card-title"> Products Pages</h3>-->
+      <!--<div class="card-text py-2">-->
+      <!--<span class="display-4 text-primary">2</span>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+    </div>
+    <div class="row py-2 justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body text-center">
+            <h3 class="card-title">
+              Company Profile
+            </h3>
+            <div class="card-text my-3">
+              <div class="row">
+                <div class="col-md-6">
+                  <h5>Name</h5>
+                </div>
+                <div class="col-md-6">
+                  <h5>{{company?.name}}</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <h5>Description</h5>
+                </div>
+                <div class="col-md-6">
+                  <h5>{{company?.description}}</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <h5>Company Url</h5>
+                </div>
+                <div class="col-md-6">
+                  <h5 *ngIf="company.url">{{company?.url}}</h5>
+                  <h5 *ngIf="!company.url" class="text-muted">Not Set</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="float-right">
+              <a class="card-link" [routerLink]="['../../company', company._id]">
+                <span class="text-primary"> View Profile </span>
+              </a>
+              <a class="card-link" href="#">
+                <span class="text-danger"> Edit </span>
+              </a>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>

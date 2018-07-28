@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {PostModel} from '../models/post.model';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {api} from '../../../environments/environment';
 import {ResponseModel} from '../models/response.model';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class PostService {
@@ -22,9 +23,9 @@ export class PostService {
     });
   }
 
-  getPostByCompanyId(id): Observable<PostModel> {
+  getPostByCompanyId(id): Observable<Array<PostModel>> {
     return this.http.get(api.endpoints.posts + `/company/${id}`).map((res: ResponseModel) => {
-      return <PostModel> res.body.data;
+      return <Array<PostModel>> res.body.data;
     });
   }
 

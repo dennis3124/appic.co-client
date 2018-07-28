@@ -1,0 +1,24 @@
+<div class="card align-self-center">
+  <a [routerLink]="['/product', post._id]">
+    <img class="card-img-top" [src]="imgSrc[0]" alt="Card image cap">
+  </a>
+  <div class="card-body">
+    <h4 class="card-title font-weight-bold">{{ post.name }}</h4>
+    <p class="card-text"> {{ post.description }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{post.clicks.length || 0}} Views</li>
+    <li class="list-group-item">{{post.clicks.length || 0}} Favorites</li>
+  </ul>
+  <div class="card-footer">
+    <span class="card-text"><small class="text-muted">Updated 2 minutes ago</small></span>
+    <div class="float-right">
+      <a class="card-link" [routerLink]="['./edit', post._id]">
+        Edit
+      </a>
+      <a class="card-link" [routerLink]="['/product', post._id]">
+        View
+      </a>
+    </div>
+  </div>
+</div>

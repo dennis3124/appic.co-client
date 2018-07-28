@@ -15,6 +15,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    // LOGIC
+    // Get user's subscribed topics. Then do a post request to query for 20 items(MIN) of post with that topic
+
   }
 
 }

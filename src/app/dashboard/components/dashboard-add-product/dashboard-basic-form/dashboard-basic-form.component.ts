@@ -15,6 +15,7 @@ import {PostModel} from '../../../../core-module/models/post.model';
 
 export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
   @Output() done = new EventEmitter<boolean>();
+  @Input('update') update;
   @Input('postInCreation') postInCreation: PostModel;
   private fileError = '';
   private files: UploadFile[];
@@ -28,8 +29,7 @@ export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
     'image/png'
   ];
 
-  constructor(
-              private util: UtilsService,
+  constructor(private util: UtilsService,
               private dashboardService: DashboardService,
               private postService: PostService,
               private zone: NgZone) {
@@ -50,7 +50,6 @@ export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
         if (this.checkValidFileTypes(curFiles[curFiles.length - 1])) {
           this.fileName = curFiles[curFiles.length - 1].name;
           this.file = curFiles[curFiles.length - 1];
-          this.dashboardService.setFile(this.file);
         } else {
           this.fileError = 'Invalid File Type';
         }
@@ -67,11 +66,10 @@ export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.isMobile = this.mobileCheck();
+    console.log(this.postInCreation);
+
     if (this.postInCreation) {
-      this.dashboardService.product.name = this.postInCreation.name;
-      this.dashboardService.product.description = this.postInCreation.description;
-      this.dashboardService.product.category = this.postInCreation.category;
-      this.dashboardService.product = this.postInCreation;
+      this.dashboardService.setProduct(this.postInCreation);
       // Go to next step in accordion
       console.log(this.postInCreation);
       this.done.emit(true);
@@ -104,7 +102,6 @@ export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
             if (this.checkValidFileTypes(file)) {
               this.fileName = file.name;
               this.file = file;
-              this.dashboardService.setFile(this.file);
             } else {
               this.fileError = 'Invalid File Type';
             }
@@ -124,13 +121,17 @@ export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
   }
 
   public finished() {
+    if (this.update) {
+      this.handleUpdatePost();
+      return;
+    }
     // Make a submission to create post;
     this.util.showLoader();
     const companyId = this.dashboardService.getCompany()._id;
 
     // First upload image
     const formData = new FormData();
-    formData.append('image', this.dashboardService.getFile());
+    formData.append('image', this.file);
     formData.append('companyId', companyId);
     environment.upload = true;
     this.postService.uploadImage(formData).subscribe(data => {
@@ -154,6 +155,38 @@ export class DashboardBasicFormComponent implements OnInit, AfterViewInit {
         });
       }
     });
+  }
+
+  handleUpdatePost() {
+    this.util.showLoader();
+    const companyId = this.dashboardService.getCompany()._id;
+
+    // Check if there is new product image
+    if (this.file) {
+      // add new project image then if no err, remove old image
+      const formData = new FormData();
+      formData.append('image', this.file);
+      formData.append('companyId', companyId);
+      environment.upload = true;
+      this.postService.uploadImage(formData).subscribe(data => {
+        const newImageUrl = data.body.data as String;
+        const newFileName = newImageUrl.split('/')[newImageUrl.split('/').length - 1];
+        // No Err, Remove old image
+        const oldImageUrl = this.postInCreation.projectImage;
+        const oldFileName = oldImageUrl.split('/')[oldImageUrl.split('/').length - 1];
+        this.postService.removeImage(oldFileName).subscribe(function(deleteImage) {
+        });
+      });
+    }
+    // No image, set to previous product Image
+    this.dashboardService.setProductImage(this.postInCreation.projectImage);
+    this.postService.updatePost(this.dashboardService.product).subscribe(update => {
+      if (update.success) {
+        this.util.hideLoader();
+        this.util.newMessage(true, 'Successfully updated product details');
+      }
+    });
+
   }
 
   // noinspection TsLint

@@ -3,7 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {api} from '../../../environments/environment';
 import {ResponseModel} from '../models/response.model';
 import {CompanyModel} from '../models/company.model';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CompanyService {

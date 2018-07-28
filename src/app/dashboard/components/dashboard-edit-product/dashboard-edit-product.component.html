@@ -1,0 +1,25 @@
+<!--Stepper Navigation-->
+<div class="py-5 h-100">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <ngb-accordion #acc="ngbAccordion" (panelChange)="beforeChange($event)" activeIds="panel-1">
+        <ngb-panel id="panel-1">
+          <ng-template ngbPanelTitle>
+            <span class="text-white accordion-title"> Product Details </span>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <app-dashboard-basic *ngIf="post" [update]="true" [postInCreation]="post" (done)="onFinishProjectDetails($event)"></app-dashboard-basic>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel id="panel-2">
+          <ng-template ngbPanelTitle>
+            <span class="text-white accordion-title"> Story </span>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <app-dashboard-story *ngIf="post" [post]="post" (done)="onFinishStory($event)"></app-dashboard-story>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+    </div>
+  </div>
+</div>
